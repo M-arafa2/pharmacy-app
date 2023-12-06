@@ -22,3 +22,12 @@ laravel sanctum for handeling the api auth
 spite to handle authortization on dashboard
 
  
+![Alt text](admin1.png)
+![Alt text](admin2.png)
+![Alt text](admin3.png)
+![Alt text](admin4.png)
+![Alt text](admin5.png)
+![Alt text](admin6.png)
+![Alt text](ph1.png)
+![Alt text](ph2.png)
+![Alt text](ph3.png)
