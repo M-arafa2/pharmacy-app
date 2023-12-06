@@ -3,8 +3,8 @@ the application have two parts :
 first the Api to create users-manage addresses-recieve orders(prescription images)-manage orders.
 second part is the dashboard which serve three roles.
 doctor can only manage orders.
-pharmacyowner can manage his own orders and his own doctors.
-admin can manage all pharmacies and all orders.
+pharmacyowner can manage his own orders and his own doctors (add-edit-delete-ban-unban).
+admin can manage all pharmacies(add delete edit) ,all orders areas and doctors
 
 ## cycle
 user will login recieve token create new order(uploading prescriptions)
