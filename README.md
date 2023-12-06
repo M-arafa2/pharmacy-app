@@ -6,14 +6,14 @@ doctor can only manage orders.
 pharmacyowner can manage his own orders and his own doctors.
 admin can manage all pharmacies and all orders.
 
-##cycle
+## cycle
 user will login recieve token create new order(uploading prescriptions)
 once order placed the application will choose the nearest pharmacy with highest priority and assign the order to it.
 then the assigned pharmacy owner or doctors can show the ordered prescriptions and fill the order with the required medications
 then payment link will be sent to the user with the details and price using stripe.
 then the user either cancel or confirm the payment.
 
-##plugins/packages used:
+## plugins/packages used:
 Datatables for managing datatables on the dashboard.
 chart js 
 adminlte
