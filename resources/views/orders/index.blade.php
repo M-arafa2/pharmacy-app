@@ -7,11 +7,6 @@
    <meta name="viewport" content="width=device-width, initial-scale=1">
    <meta name="csrf-token" content="{{ csrf_token() }}">
    <title>Orders</title>
-
-   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
-   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
-   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css"/>
-
     
 @stop
 
@@ -48,9 +43,6 @@
 @stop
 
 @section('js')
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js"></script>
-   <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
    <script type="text/javascript">
    // CSRF Token
    var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content'); 
@@ -60,7 +52,25 @@
        var empTable = $('#empTable').DataTable({
              processing: true,
              serverSide: true,
+             dom: 'Bfrtip',
              ajax: "{{ route('orders.index') }}",
+             buttons: [{extend: 'excel',
+                        text: 'Save As Excel',
+                        exportOptions: {
+                        modifier: {
+                                    page: 'current'
+                                }
+                        }
+                    },
+                    {extend: 'pdf',
+                        text: 'pdf',
+                        exportOptions: {
+                        modifier: {
+                                    page: 'current'
+                                }
+                        }
+                    }
+                    ],
              columns: [
                  { data: 'id' },
                  { data: 'user.name' },

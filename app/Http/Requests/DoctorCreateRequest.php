@@ -36,7 +36,7 @@ class DoctorCreateRequest extends FormRequest
                 'email' => 'required|email|unique:staff,email',
                 'national_id' => 'required|integer|unique:staff,national_id',
             ];
-        } elseif($this->isMethod('PUT')) {
+        } elseif($this->isMethod('PATCH')) {
             $rules += [
                 'password' => 'sometimes|min:8',
                 'image' => 'sometimes|image|mimes:jpg,png,jpeg,gif,svg|max:4048',

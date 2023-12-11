@@ -129,6 +129,7 @@ class doctorController extends Controller
                 $validated['password'] = Hash::make($request->post('password'));
             }
             if(Auth::user()->role == 'admin') {
+                dump($validated);
                 if($docstaff->update($validated) && $doctor->update($validated)) {
                     return $this->success('updated Successfully', []);
                 } else {

@@ -9,6 +9,10 @@ use App\Models\staff;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Laravel\Socialite\Facades\Socialite;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class RegisterController extends Controller
 {
@@ -69,10 +73,56 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-            'image' => 'uploads/image',
+            'image' => 'image/doctors/default.jpg',
             'national_id' => '34343445343',
             'role' => 'doctor',
 
         ]);
+    }
+    protected function gitRedirect()
+    {
+        return Socialite::driver('github')->redirect();
+    }
+    protected function gitCallBack(Request $request)
+    {
+        dump($request);
+        $githubUser = Socialite::driver('github')->user();
+        $this->socialLogin($githubUser->id, $githubUser->name, $githubUser->email);
+        return redirect('/home');
+
+
+    }
+    protected function twitterRedirect()
+    {
+        return Socialite::driver('twitter')->redirect();
+    }
+    protected function twitterCallBack(Request $request)
+    {
+        $twitterUser = Socialite::driver('twitter')->user();
+        $this->socialLogin($twitterUser->id, $twitterUser->name, $twitterUser->email);
+
+        return redirect('/home');
+    }
+
+    private function socialLogin(string $id, string $name, string $email)
+    {
+        if($user = staff::where('email', $email)->first()) {
+            $user->update([
+                'github_id' => $id]);
+        } else {
+            $user = staff::Create([
+                'github_id' => $id,
+                'name' => $name,
+                'email' => $email,
+                'password' => Hash::make(str::random(8)),
+                'image' => 'image/doctors/default.jpg',
+                'national_id' => rand(200000, 2000000000000000),
+                'role' => 'doctor',
+            ]);
+        }
+        Auth::login($user);
+        $user->assignRole('doctor');
+
+
     }
 }

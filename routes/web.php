@@ -9,6 +9,7 @@ use App\Http\Controllers\pharmacyController;
 use App\Http\Controllers\userController;
 use App\Http\Controllers\areaController;
 use App\Http\Controllers\Api\VerifyEmailController;
+use App\Http\Controllers\Auth\RegisterController;
 use App\Models\medicine;
 
 /*
@@ -28,6 +29,12 @@ Route::get('/logout', function () {
     Auth::logout();
     return redirect('/');
 })->name('logout');
+//github login
+Route::get('/auth/git/redirect', [RegisterController::class,'gitRedirect'])->name('gitRedirect');
+Route::get('/auth/git/callback', [RegisterController::class,'gitCallBack'])->name('gitCallBack');
+//twitter login
+Route::get('/auth/twitter/redirect', [RegisterController::class,'twitterRedirect'])->name('twitterRedirect');
+Route::get('/auth/twitter/callback', [RegisterController::class,'twitterCallBack'])->name('twitterCallBack');
 Route::post('/webhook', [orderController::class, 'webhook'])->name('orders.webhook');
 Route::get('/success', function () {return view('orders.success');})->name('orders.success');
 Route::get('/cancel', function () {return view('orders.success');})->name('orders.cancel');
